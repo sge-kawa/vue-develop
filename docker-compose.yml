@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  vue:
+    container_name: vue
+    build: ./node
+    working_dir: /workspace
+    volumes:
+      - ./vue-cli-ui:/root/.vue-cli-ui
+      - ./workspace:/workspace
+    ports:
+      - "${VUE_UI_PORT:-8000}:${VUE_UI_PORT:-8000}"
+      - "${APP_PORT_RANGE:-8080-8089:8080-8089}"
+    environment:
+      - "TZ=${TZ:-UTC}"
+    command: "vue ui --host=0.0.0.0 --port=${VUE_UI_PORT:-8000}"
